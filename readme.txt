@@ -14,7 +14,7 @@ The MAS WooCommerce Brands plugin can add brands to your products, as well as wi
 
 == Installation ==
 
-The latest version of the MAS WooCommerce Brands plugin can be [**downloaded**](https://wordpress.org/plugins/mas-woocommerce-brands/) as a WordPress installable package.
+The latest version of the MAS WooCommerce Brands plugin can be https://github.com/madrasthemes/mas-woocommerce-brands/archive/master.zip as a WordPress installable package.
 
 Installing the MAS WooCommerce Brands plugin.
 
@@ -22,7 +22,3 @@ Installing the MAS WooCommerce Brands plugin.
 2. Upload `mas-woocommerce-brands` to the `/wp-content/plugins/` directory.
 3. Activate the plugin through the 'Plugins' menu in WordPress.
 4. Configure the brand attribute settings in WooCommerce > Settings > Products > Brands.
-
-== Contributing ==
-
-**Pull requests are welcome.** Please review the [guidelines for contributing](https://github.com/Transvelo/mas-woocommerce-brands/blob/master/contributing.md) and [code of conduct](https://github.com/Transvelo/mas-woocommerce-brands/blob/master/code_of_conduct.md) before contributing to this repository.
