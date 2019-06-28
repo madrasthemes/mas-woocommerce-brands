@@ -8,7 +8,7 @@ if ( ! function_exists( 'mas_wcbr_get_brand_thumbnail_url' ) ) {
 	 * @return string
 	 */
 	function mas_wcbr_get_brand_thumbnail_url( $brand_id, $size = 'full' ) {
-		$thumbnail_id = get_woocommerce_term_meta( $brand_id, 'thumbnail_id', true );
+		$thumbnail_id = get_term_meta( $brand_id, 'thumbnail_id', true );
 
 		if ( $thumbnail_id )
 			$thumb_src = wp_get_attachment_image_src( $thumbnail_id, $size );
@@ -28,7 +28,7 @@ if ( ! function_exists( 'mas_wcbr_get_brand_thumbnail_image' ) ) {
 	 * @return string
 	 */
 	function mas_wcbr_get_brand_thumbnail_image( $brand, $size = '' ) {
-		$thumbnail_id = get_woocommerce_term_meta( $brand->term_id, 'thumbnail_id', true );
+		$thumbnail_id = get_term_meta( $brand->term_id, 'thumbnail_id', true );
 
 		if ( $size === '' ) {
 			$size = apply_filters( 'mas_wcbr_brand_thumbnail_size', 'brand-thumb' );

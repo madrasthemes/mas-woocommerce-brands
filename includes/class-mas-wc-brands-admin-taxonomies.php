@@ -56,7 +56,7 @@ if ( ! class_exists( 'Mas_WC_Brands_Admin_Taxonomies' ) ) {
 			wp_enqueue_script( 'mas-wc-brands-admin' );
 
 			$image 			= '';
-			$thumbnail_id 	= absint( get_woocommerce_term_meta( $term->term_id, 'thumbnail_id', true ) );
+			$thumbnail_id 	= absint( get_term_meta( $term->term_id, 'thumbnail_id', true ) );
 			if ( $thumbnail_id ) {
 				$image = wp_get_attachment_thumb_url( $thumbnail_id );
 			} else {
@@ -127,7 +127,7 @@ if ( ! class_exists( 'Mas_WC_Brands_Admin_Taxonomies' ) ) {
 			if ( $column == 'thumb' ) {
 
 				$image 			= '';
-				$thumbnail_id 	= get_woocommerce_term_meta( $id, 'thumbnail_id', true );
+				$thumbnail_id 	= get_term_meta( $id, 'thumbnail_id', true );
 
 				if ($thumbnail_id)
 					$image = wp_get_attachment_thumb_url( $thumbnail_id );
