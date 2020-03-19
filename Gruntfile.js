@@ -105,6 +105,20 @@ module.exports = function( grunt ) {
 			}
 		},
 
+		// Autoprefixer.
+		postcss: {
+			options: {
+				processors: [
+					require( 'autoprefixer' )
+				]
+			},
+			dist: {
+				src: [
+					'<%= dirs.css %>/*.css'
+				]
+			}
+		},
+
 		// Watch changes for assets.
 		watch: {
 			css: {
@@ -178,33 +192,17 @@ module.exports = function( grunt ) {
 
 		// Clean the directory.
 		clean: {
-			dist: [
+			main: [
+				'<%= pkg.name %>/',
 				'<%= pkg.name %>*.zip'
 			]
 		},
 
-		// Autoprefixer.
-		postcss: {
-			options: {
-				processors: [
-					require( 'autoprefixer' )
-				]
-			},
-			dist: {
-				src: [
-					'<%= dirs.css %>/*.css'
-				]
-			}
-		},
-
-		compress: {
-			build: {
-				options: {
-					archive: '<%= pkg.name %>.zip'
-				},
+		// Creates deploy-able plugin
+		copy: {
+			main: {
 				files: [ {
 					expand: true,
-					dest: '<%= pkg.name %>',
 					src: [
 						'**',
 						'!.*',
@@ -213,7 +211,41 @@ module.exports = function( grunt ) {
 						'!Gruntfile.js',
 						'!README.md',
 						'!package.json',
+						'!package-lock.json',
 						'!node_modules/**',
+						'!<%= pkg.name %>/**',
+						'!<%= pkg.name %>.zip',
+						'!assets/esnext/**',
+						'!none',
+						'!.DS_Store',
+						'!npm-debug.log'
+					],
+					dest: '<%= pkg.name %>/'
+				} ]
+			}
+		},
+
+		compress: {
+			build: {
+				options: {
+					archive: '<%= pkg.name %>.zip',
+					mode: 'zip'
+				},
+				files: [ {
+					expand: true,
+					src: [
+						'**',
+						'!.*',
+						'!.*/**',
+						'.htaccess',
+						'!Gruntfile.js',
+						'!README.md',
+						'!package.json',
+						'!package-lock.json',
+						'!node_modules/**',
+						'!<%= pkg.name %>/**',
+						'!<%= pkg.name %>.zip',
+						'!assets/esnext/**',
 						'!none',
 						'!.DS_Store',
 						'!npm-debug.log'
@@ -235,6 +267,7 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 	grunt.loadNpmTasks( 'grunt-contrib-clean' );
+	grunt.loadNpmTasks( 'grunt-contrib-copy' );
 	grunt.loadNpmTasks( 'grunt-contrib-compress' );
 
 	// Register tasks
@@ -262,7 +295,11 @@ module.exports = function( grunt ) {
 	]);
 
 	grunt.registerTask( 'deploy', [
-		'clean',
+		'clean:main',
+		'copy:main'
+	]);
+
+	grunt.registerTask( 'build', [
 		'compress:build'
 	]);
 };

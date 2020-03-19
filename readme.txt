@@ -52,7 +52,8 @@ Yes you can! Join in on our [GitHub repository](https://github.com/madrasthemes/
 
 == Screenshots ==
 
-1. Static Contents admin.
+1. Brands admin.
+2. Settings page.
 
 == Changelog ==
 
