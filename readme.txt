@@ -1,10 +1,12 @@
 === MAS WooCommerce Brands ===
-Contributors: madrasthemes
+Contributors: madrasthemes, farookibrahim, jmabbas, ibndawood
+Tags: woocommerce, woocommerce brands, woocommerce manufacturer, woocommerce product, woocommerce product attribute
 Requires at least: 4.8
-Tested up to: 4.8
-Stable tag: 1.0.0
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tested up to: 5.3
+Requires PHP: 5.6
+Stable tag: 1.0.2
+License: GPLv3
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Brands plugin for WooCommerce by MadrasThemes.
 
@@ -12,13 +14,53 @@ Brands plugin for WooCommerce by MadrasThemes.
 
 The MAS WooCommerce Brands plugin can add brands to your products, as well as widgets and shortcodes for displaying your brands.
 
+Create a product attribute for brand and configure the brand attribute settings in WooCommerce > Settings > Products > Brands.
+
 == Installation ==
 
-The latest version of the MAS WooCommerce Brands plugin can be https://github.com/madrasthemes/mas-woocommerce-brands/archive/master.zip as a WordPress installable package.
+= Minimum Requirements =
 
-Installing the MAS WooCommerce Brands plugin.
+* PHP version 5.6 or greater (PHP 7.0 or greater is recommended)
 
-1. Download the `mas-woocommerce-brands.zip` and unpack the archive.
-2. Upload `mas-woocommerce-brands` to the `/wp-content/plugins/` directory.
-3. Activate the plugin through the 'Plugins' menu in WordPress.
-4. Configure the brand attribute settings in WooCommerce > Settings > Products > Brands.
+= Automatic installation =
+
+Automatic installation is the easiest option as WordPress handles the file transfers itself and you don’t need to leave your web browser. To do an automatic install of MAS WooCommerce Brands, log in to your WordPress dashboard, navigate to the Plugins menu and click Add New.
+
+In the search field type “MAS WooCommerce Brands” and click Search Plugins. Once you’ve found our plugin you can view details about it such as the point release, rating and description. Most importantly of course, you can install it by simply clicking “Install Now”.
+
+= Manual installation =
+
+The manual installation method involves downloading our plugin and uploading it to your webserver via your favourite FTP application. The WordPress codex contains [instructions on how to do this here](https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation).
+
+= Updating =
+
+Automatic updates should work like a charm; as always though, ensure you backup your site just in case.
+
+== Frequently Asked Questions ==
+
+= Will MAS WooCommerce Brands work with my theme? =
+
+Yes; MAS WooCommerce Brands will work with any theme which supports WooCommerce.
+
+= Where can I report bugs or contribute to the project? =
+
+Bugs can be reported either in our support forum or preferably on the [MAS WooCommerce Brands GitHub repository](https://github.com/madrasthemes/mas-woocommerce-brands/issues).
+
+= Can I contribute? =
+
+Yes you can! Join in on our [GitHub repository](https://github.com/madrasthemes/mas-woocommerce-brands/) :)
+
+== Screenshots ==
+
+1. Static Contents admin.
+
+== Changelog ==
+
+= 1.0.2 - 2020-03-19 =
+* Tweak – Minor Fixes
+
+= 1.0.1 - 2019-06-28 =
+* Fix – Minor Fixes
+
+= 1.0.0 - 2019-06-28 =
+* Initial Release
