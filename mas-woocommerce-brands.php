@@ -27,8 +27,8 @@ if ( ! defined( 'MAS_WCBR_PLUGIN_FILE' ) ) {
 /**
  * Required functions
  */
-if ( ! function_exists( 'is_woocommerce_active' ) ) {
-	function is_woocommerce_active() {
+if ( ! function_exists( 'mas_wcbr_is_woocommerce_active' ) ) {
+	function mas_wcbr_is_woocommerce_active() {
 
 		$active_plugins = (array) get_option( 'active_plugins', array() );
 
@@ -40,7 +40,7 @@ if ( ! function_exists( 'is_woocommerce_active' ) ) {
 	}
 }
 
-if ( is_woocommerce_active() ) {
+if ( mas_wcbr_is_woocommerce_active() ) {
 	// Include the main Mas_WC_Brands class.
 	if ( ! class_exists( 'Mas_WC_Brands' ) ) {
 		include_once dirname( MAS_WCBR_PLUGIN_FILE ) . '/includes/class-mas-wc-brands.php';
