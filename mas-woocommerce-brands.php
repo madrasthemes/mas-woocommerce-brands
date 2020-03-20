@@ -10,7 +10,7 @@
  * Domain Path: /languages/
  * WC tested up to: 4.0.0
  *
- * @package MasVideos
+ * @package Mas_WC_Brands
  * @category Core
  * @author Madras Themes
  */
