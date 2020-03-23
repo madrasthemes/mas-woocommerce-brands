@@ -52,8 +52,9 @@ Yes you can! Join in on our [GitHub repository](https://github.com/madrasthemes/
 
 == Screenshots ==
 
-1. Brands admin.
-2. Settings page.
+1. Settings page.
+2. Brand Attribute admin.
+2. Brands admin.
 
 == Changelog ==
 
