@@ -57,7 +57,7 @@ Yes you can! Join in on our [GitHub repository](https://github.com/madrasthemes/
 
 == Changelog ==
 
-= 1.0.2 - 2020-03-19 =
+= 1.0.2 - 2020-03-23 =
 * Tweak – WooCommerce 4.x compatible
 
 = 1.0.1 - 2019-06-28 =

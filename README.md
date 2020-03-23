@@ -1,2 +1,2 @@
 # mas-woocommerce-brands
-MAS WooCommerce Brands
+MAS Brands for WooCommerce
