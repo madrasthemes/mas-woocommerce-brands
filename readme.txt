@@ -16,6 +16,12 @@ The MAS Brands for WooCommerce plugin can add brands to your products, as well a
 
 Create a product attribute for brand and configure the brand attribute settings in WooCommerce > Settings > Products > Brands.
 
+Use the `[mas_product_brand_list]` shortcode to display brands A-Z. Allowed attributes are show_top_links and show_empty_brands.
+
+Use the `[mas_product_brand_thumbnails]` shortcode to display brands thumbnails. Allowed attributes are columns, orderby, order, slug, hide_empty and number.
+
+[youtube https://www.youtube.com/watch?v=9KTYwoiX2is]
+
 == Installation ==
 
 = Minimum Requirements =
@@ -54,7 +60,9 @@ Yes you can! Join in on our [GitHub repository](https://github.com/madrasthemes/
 
 1. Settings page.
 2. Brand Attribute admin.
-2. Brands admin.
+3. Brands admin.
+4. Shortcode Editor.
+5. Shortcode Output.
 
 == Changelog ==
 
