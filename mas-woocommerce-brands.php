@@ -8,7 +8,7 @@
  * Author URI: https://madrasthemes.com/
  * Text Domain: mas-wc-brands
  * Domain Path: /languages/
- * WC tested up to: 4.0.0
+ * WC tested up to: 4.1.0
  *
  * @package Mas_WC_Brands
  * @category Core
