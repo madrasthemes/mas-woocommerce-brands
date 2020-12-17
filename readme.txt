@@ -2,9 +2,9 @@
 Contributors: madrasthemes, farookibrahim, jmabbas, ibndawood
 Tags: woocommerce, woocommerce brands, woocommerce manufacturer, woocommerce product, woocommerce product attribute
 Requires at least: 4.8
-Tested up to: 5.4
+Tested up to: 5.6
 Requires PHP: 5.6
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -65,6 +65,9 @@ Yes you can! Join in on our [GitHub repository](https://github.com/madrasthemes/
 5. Shortcode Output.
 
 == Changelog ==
+
+= 1.0.4 - 2020-12-17 =
+* Tweak – WooCommerce 4.8 compatible
 
 = 1.0.3 - 2020-05-07 =
 * Tweak – WooCommerce 4.1.x compatible
