@@ -11,8 +11,6 @@
  * WC tested up to: 4.8
  *
  * @package Mas_WC_Brands
- * @category Core
- * @author Madras Themes
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -28,6 +26,11 @@ if ( ! defined( 'MAS_WCBR_PLUGIN_FILE' ) ) {
  * Required functions
  */
 if ( ! function_exists( 'mas_wcbr_is_woocommerce_active' ) ) {
+	/**
+	 * Check if WooCommerce is active.
+	 *
+	 * @return bool
+	 */
 	function mas_wcbr_is_woocommerce_active() {
 
 		$active_plugins = (array) get_option( 'active_plugins', array() );
@@ -36,7 +39,7 @@ if ( ! function_exists( 'mas_wcbr_is_woocommerce_active' ) ) {
 			$active_plugins = array_merge( $active_plugins, get_site_option( 'active_sitewide_plugins', array() ) );
 		}
 
-		return in_array( 'woocommerce/woocommerce.php', $active_plugins ) || array_key_exists( 'woocommerce/woocommerce.php', $active_plugins );
+		return in_array( 'woocommerce/woocommerce.php', $active_plugins, true ) || array_key_exists( 'woocommerce/woocommerce.php', $active_plugins );
 	}
 }
 
@@ -49,7 +52,7 @@ if ( mas_wcbr_is_woocommerce_active() ) {
 	/**
 	 * Unique access instance for Mas_WC_Brands class
 	 */
-	function Mas_WC_Brands() {
+	function Mas_WC_Brands() { //phpcs:ignore WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid
 		return Mas_WC_Brands::instance();
 	}
 
