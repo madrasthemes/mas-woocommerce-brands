@@ -1,43 +1,46 @@
 {
-  "name": "mas-woocommerce-brands",
-  "title": "MAS Brands for WooCommerce",
-  "version": "1.0.4",
-  "homepage": "https://madrasthemes.com/plugins/mas-woocommerce-brands",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/madrasthemes/mas-woocommerce-brands.git"
-  },
-  "license": "GPL-3.0+",
-  "main": "Gruntfile.js",
-  "devDependencies": {
-    "autoprefixer": "^9.7.4",
-    "config": "^3.3.0",
-    "cross-env": "^5.2.1",
-    "grunt": "^1.1.0",
-    "grunt-checktextdomain": "^1.0.1",
-    "grunt-contrib-clean": "^2.0.0",
-    "grunt-contrib-compress": "^1.6.0",
-    "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-cssmin": "^3.0.0",
-    "grunt-contrib-jshint": "^2.1.0",
-    "grunt-contrib-uglify": "^4.0.1",
-    "grunt-contrib-watch": "^1.1.0",
-    "grunt-postcss": "^0.9.0",
-    "grunt-rtlcss": "^2.0.2",
-    "grunt-sass": "^3.1.0",
-    "grunt-stylelint": "^0.11.1",
-    "grunt-wp-i18n": "^1.0.3",
-    "node-sass": "^4.13.1",
-    "stylelint": "^10.1.0"
-  },
-  "browserslist": [
-    "last 1 version",
-    "> 1%",
-    "IE 10"
-  ],
-  "engines": {
-    "node": ">=6.9.4",
-    "npm": ">=1.1.0"
-  }
+	"name": "mas-woocommerce-brands",
+	"title": "MAS Brands for WooCommerce",
+	"version": "1.0.4",
+	"homepage": "https://madrasthemes.com/plugins/mas-woocommerce-brands",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/madrasthemes/mas-woocommerce-brands.git"
+	},
+	"license": "GPL-3.0+",
+	"main": "Gruntfile.js",
+	"scripts": {
+		"wp-env": "wp-env"
+	},
+	"devDependencies": {
+		"autoprefixer": "^9.7.4",
+		"config": "^3.3.0",
+		"cross-env": "^5.2.1",
+		"grunt": "^1.4.1",
+		"grunt-checktextdomain": "^1.0.1",
+		"grunt-contrib-clean": "^2.0.0",
+		"grunt-contrib-compress": "^1.6.0",
+		"grunt-contrib-concat": "^1.0.1",
+		"grunt-contrib-copy": "^1.0.0",
+		"grunt-contrib-cssmin": "^3.0.0",
+		"grunt-contrib-jshint": "^2.1.0",
+		"grunt-contrib-uglify": "^4.0.1",
+		"grunt-contrib-watch": "^1.1.0",
+		"grunt-postcss": "^0.9.0",
+		"grunt-rtlcss": "^2.0.2",
+		"grunt-sass": "^3.1.0",
+		"grunt-stylelint": "^0.11.1",
+		"grunt-wp-i18n": "^1.0.3",
+		"node-sass": "^7.0.1",
+		"stylelint": "^10.1.0"
+	},
+	"browserslist": [
+		"last 1 version",
+		"> 1%",
+		"IE 10"
+	],
+	"engines": {
+		"node": ">=6.9.4",
+		"npm": ">=1.1.0"
+	}
 }
