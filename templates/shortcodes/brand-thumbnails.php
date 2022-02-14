@@ -1,6 +1,8 @@
 <?php
 /**
  * Show a grid of thumbnails
+ *
+ * @package Mas_WC_Brands/Templates
  */
 
 $wrapper_class = 'columns-' . $columns;
@@ -20,19 +22,19 @@ foreach ( $brands as $index => $brand ) :
 	$count++;
 	$class = 'thumbnail';
 
-	if ( 0 == $count % 2 ) {
+	if ( 0 === $count % 2 ) {
 		$class .= ' even';
 	} else {
 		$class .= ' odd';
 	}
 
-	if ( $index == 0 || $index % $columns == 0 ) {
+	if ( 0 === $index || 0 === $index % $columns ) {
 		$class .= ' first';
-	} elseif ( ( $index + 1 ) % $columns == 0 ) {
+	} elseif ( 0 === ( $index + 1 ) % $columns ) {
 		$class .= ' last';
 	}
 
-	if ( '' == $wrapper_class ) {
+	if ( '' === $wrapper_class ) {
 		$width     = floor( ( ( 100 - ( ( $columns - 1 ) * 2 ) ) / $columns ) * 100 ) / 100;
 		$style_att = ' style="width: ' . intval( $width ) . '%;"';
 	}

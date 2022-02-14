@@ -1,6 +1,8 @@
 <?php
 /**
  * Show a grid of thumbnails
+ *
+ * @package Mas_WC_Brands/Templates
  */
 
 wc_get_template(

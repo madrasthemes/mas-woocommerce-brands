@@ -3,6 +3,7 @@
  * Single Brand
  *
  * @usedby [mas_product_brand]
+ * @package Mas_WC_Brands/Templates
  */
 
 $style_attr = '';
@@ -14,10 +15,10 @@ if ( ! empty( $height ) ) {
 }
 
 ?>
-<a href="<?php echo get_term_link( $term, $taxonomy ); ?>">
+<a href="<?php echo esc_url( get_term_link( $term, $taxonomy ) ); ?>">
 	<img src="<?php echo esc_url( $thumbnail ); ?>" alt="<?php echo esc_attr( $term->name ); ?>" class="<?php echo esc_attr( $class ); ?>" 
 						 <?php
 							if ( ! empty( $style_attr ) ) :
 								?>
-		style="<?php echo esc_attr( $style_attr ); ?>"<?php endif; ?> />
+		style="<?php echo esc_attr( $style_attr ); ?>"<?php endif; ?>>
 </a>

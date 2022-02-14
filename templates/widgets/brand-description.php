@@ -1,6 +1,8 @@
 <?php
 /**
  * Show a brands description when on a taxonomy page
+ *
+ * @package Mas_WC_Brands/Templates
  */
 
 if ( $thumbnail ) {
