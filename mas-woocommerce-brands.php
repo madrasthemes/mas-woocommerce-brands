@@ -50,7 +50,7 @@ if ( mas_wcbr_is_woocommerce_active() ) {
 	}
 
 	/**
-	 * Unique access instance for Mas_WC_Brands class
+	 * Unique access instance for Mas_WC_Brands class.
 	 */
 	function Mas_WC_Brands() { //phpcs:ignore WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid
 		return Mas_WC_Brands::instance();
