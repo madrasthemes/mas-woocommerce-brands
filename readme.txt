@@ -1,10 +1,10 @@
 === MAS Brands for WooCommerce ===
 Contributors: madrasthemes, farookibrahim, jmabbas, ibndawood
 Tags: woocommerce, woocommerce brands, woocommerce manufacturer, woocommerce product, woocommerce product attribute
-Requires at least: 4.8
-Tested up to: 5.6
-Requires PHP: 5.6
-Stable tag: 1.0.4
+Requires at least: 5.6
+Tested up to: 5.9
+Requires PHP: 7.4
+Stable tag: 1.0.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -26,7 +26,7 @@ Use the `[mas_product_brand_thumbnails]` shortcode to display brands thumbnails.
 
 = Minimum Requirements =
 
-* PHP version 5.6 or greater (PHP 7.0 or greater is recommended)
+* PHP version 7.4 or greater
 
 = Automatic installation =
 
@@ -65,6 +65,9 @@ Yes you can! Join in on our [GitHub repository](https://github.com/madrasthemes/
 5. Shortcode Output.
 
 == Changelog ==
+
+= 1.0.5 - 2022-04-07 =
+* Tweak - WooCommerce 6.x compatible
 
 = 1.0.4 - 2020-12-17 =
 * Tweak – WooCommerce 4.8 compatible
