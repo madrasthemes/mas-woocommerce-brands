@@ -2,7 +2,7 @@
 Contributors: madrasthemes, farookibrahim, jmabbas, ibndawood
 Tags: woocommerce, woocommerce brands, woocommerce manufacturer, woocommerce product, woocommerce product attribute
 Requires at least: 5.6
-Tested up to: 5.9
+Tested up to: 6.0
 Requires PHP: 7.4
 Stable tag: 1.0.5
 License: GPLv3
