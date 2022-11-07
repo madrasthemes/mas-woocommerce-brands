@@ -17,7 +17,7 @@ if ( ! class_exists( 'Mas_WC_Brands' ) ) {
 		 *
 		 * @var string
 		 */
-		public $version = '1.0.4';
+		public $version = '1.0.6';
 
 		/**
 		 * The single instance of the class.

@@ -1,15 +1,15 @@
-# Copyright (C) 2020 MadrasThemes
+# Copyright (C) 2022 MadrasThemes
 # This file is distributed under the same license as the MAS Brands for WooCommerce package.
 msgid ""
 msgstr ""
-"Project-Id-Version: MAS Brands for WooCommerce 1.0.4\n"
+"Project-Id-Version: MAS Brands for WooCommerce 1.0.6\n"
 "Report-Msgid-Bugs-To: "
 "https://github.com/transvelo/mas-woocommerce-brands/issues\n"
-"POT-Creation-Date: 2020-12-17 13:39:19+00:00\n"
+"POT-Creation-Date: 2022-11-07 05:50:03+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
@@ -74,16 +74,16 @@ msgstr ""
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: includes/widgets/class-mas-wc-widget-brand-description.php:25
+#: includes/widgets/class-mas-wc-widget-brand-description.php:51
 msgid "MAS WC Brand Description"
 msgstr ""
 
-#: includes/widgets/class-mas-wc-widget-brand-description.php:26
+#: includes/widgets/class-mas-wc-widget-brand-description.php:52
 msgid "When viewing a brand archive, show the current brands description."
 msgstr ""
 
-#: includes/widgets/class-mas-wc-widget-brand-description.php:78
-#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:127
+#: includes/widgets/class-mas-wc-widget-brand-description.php:134
+#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:144
 msgid "Title:"
 msgstr ""
 
@@ -95,59 +95,59 @@ msgstr ""
 msgid "Show a grid of brand thumbnails."
 msgstr ""
 
-#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:132
+#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:154
 msgid "Columns:"
 msgstr ""
 
-#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:137
+#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:167
 msgid "Image Size:"
 msgstr ""
 
-#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:142
+#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:180
 msgid "Fluid columns:"
 msgstr ""
 
-#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:147
+#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:185
 msgid "Number:"
 msgstr ""
 
-#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:148
+#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:191
 msgid "All"
 msgstr ""
 
-#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:152
+#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:195
 msgid "Exclude:"
 msgstr ""
 
-#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:153
+#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:201
 msgid "None"
 msgstr ""
 
-#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:157
+#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:205
 msgid "Hide empty brands:"
 msgstr ""
 
-#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:159
+#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:207
 msgid "Yes"
 msgstr ""
 
-#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:160
+#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:208
 msgid "No"
 msgstr ""
 
-#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:165
+#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:213
 msgid "Order by:"
 msgstr ""
 
-#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:167
+#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:215
 msgid "Name"
 msgstr ""
 
-#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:168
+#: includes/widgets/class-mas-wc-widget-brand-thumbnails.php:216
 msgid "Count"
 msgstr ""
 
-#: templates/shortcodes/brands-a-z.php:35
+#: templates/shortcodes/brands-a-z.php:40
 msgid "&uarr; Top"
 msgstr ""
 
