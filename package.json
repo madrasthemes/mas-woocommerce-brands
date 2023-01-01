@@ -15,7 +15,7 @@
 	"devDependencies": {
 		"@wordpress/env": "^4.2.1",
 		"autoprefixer": "^9.7.4",
-		"config": "^3.3.0",
+		"config": "^3.3.8",
 		"cross-env": "^5.2.1",
 		"grunt": "^1.4.1",
 		"grunt-checktextdomain": "^1.0.1",
