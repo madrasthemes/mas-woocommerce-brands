@@ -33,7 +33,7 @@
 		"grunt-stylelint": "^0.11.1",
 		"grunt-wp-i18n": "^1.0.3",
 		"node-sass": "^7.0.3",
-		"stylelint": "^10.1.0"
+		"stylelint": "^15.10.3"
 	},
 	"browserslist": [
 		"last 1 version",
