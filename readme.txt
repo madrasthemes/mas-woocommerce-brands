@@ -4,7 +4,7 @@ Tags: woocommerce, woocommerce brands, woocommerce manufacturer, woocommerce pro
 Requires at least: 5.6
 Tested up to: 6.0.1
 Requires PHP: 7.4
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -65,6 +65,10 @@ Yes you can! Join in on our [GitHub repository](https://github.com/madrasthemes/
 5. Shortcode Output.
 
 == Changelog ==
+
+
+= 1.0.7 - 2023-10-17 =
+* Tweak - WooCommerce 8.x compatible
 
 = 1.0.6 - 2022-11-07 =
 * Tweak - WooCommerce 7.x compatible
