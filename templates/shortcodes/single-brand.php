@@ -17,8 +17,8 @@ if ( ! empty( $height ) ) {
 ?>
 <a href="<?php echo esc_url( get_term_link( $term, $taxonomy ) ); ?>">
 	<img src="<?php echo esc_url( $thumbnail ); ?>" alt="<?php echo esc_attr( $term->name ); ?>" class="<?php echo esc_attr( $class ); ?>" 
-						 <?php
-							if ( ! empty( $style_attr ) ) :
-								?>
+						<?php
+						if ( ! empty( $style_attr ) ) :
+							?>
 		style="<?php echo esc_attr( $style_attr ); ?>"<?php endif; ?>>
 </a>

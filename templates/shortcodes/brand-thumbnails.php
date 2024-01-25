@@ -41,7 +41,7 @@ foreach ( $brands as $index => $brand ) :
 
 	<div class="<?php echo esc_attr( $class ); ?>">
 		<a href="<?php echo esc_url( get_term_link( $brand->slug, $taxonomy ) ); ?>" title="<?php echo esc_attr( $brand->name ); ?>">
-		<?php echo mas_wcbr_get_brand_thumbnail_image( $brand, $image_size ); ?>
+		<?php echo wp_kses_post( mas_wcbr_get_brand_thumbnail_image( $brand, $image_size ) ); ?>
 		</a>
 	</div>
 

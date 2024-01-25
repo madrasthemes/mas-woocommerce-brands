@@ -6,7 +6,7 @@
  */
 
 if ( $thumbnail ) {
-	echo mas_wcbr_get_brand_thumbnail_image( $brand );
+	echo wp_kses_post( mas_wcbr_get_brand_thumbnail_image( $brand ) );
 }
 
-echo wpautop( wptexturize( term_description() ) );
+echo wp_kses_post( wpautop( wptexturize( term_description() ) ) );
