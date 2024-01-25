@@ -26,7 +26,7 @@
 	<arg name="parallel" value="8" />
 
 	<!-- Configs -->
-	<config name="minimum_supported_wp_version" value="5.2" />
+	<config name="minimum_supported_wp_version" value="5.3" />
 	<config name="testVersion" value="8.0-" />
 
 	<!-- Rules -->
