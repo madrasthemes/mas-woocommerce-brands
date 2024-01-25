@@ -70,6 +70,17 @@
     }
 }
 
+.brand-thumbnails {
+    .thumbnail > a {
+        display: block;
+    }
+
+    .brand-thumbnail {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
 @media (min-width:550px) {
 	.brand-thumbnails {
 		@include make-row();
