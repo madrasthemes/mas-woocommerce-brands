@@ -66,7 +66,7 @@ Yes you can! Join in on our [GitHub repository](https://github.com/madrasthemes/
 
 == Changelog ==
 
-= 1.0.7 - 2024-01-25 =
+= 1.0.8 - 2024-01-25 =
 * Feature - WordPress 6.4 compatible
 * Feature - WooCommerce 8.5.x compatible
 * Feature - Improved security for widget/shortcode output
