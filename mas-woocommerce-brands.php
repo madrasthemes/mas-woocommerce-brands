@@ -12,7 +12,7 @@
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:       mas-wc-brands
  * Domain Path:       /languages
- * WC tested up to:   7.0.2
+ * WC tested up to:   8.5
  *
  * @package Mas_WC_Brands
  */
