@@ -2,9 +2,9 @@
 Contributors: madrasthemes, farookibrahim, jmabbas, ibndawood
 Tags: woocommerce, woocommerce brands, woocommerce manufacturer, woocommerce product, woocommerce product attribute
 Requires at least: 5.6
-Tested up to: 6.0.1
+Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -66,6 +66,12 @@ Yes you can! Join in on our [GitHub repository](https://github.com/madrasthemes/
 
 == Changelog ==
 
+= 1.0.7 - 2024-01-25 =
+* Feature - WordPress 6.4 compatible
+* Feature - WooCommerce 8.5.x compatible
+* Feature - Improved security for widget/shortcode output
+* Feature - TwentyTwentyFour theme compatibile
+* Feature - HPOS compatibile
 
 = 1.0.7 - 2023-10-17 =
 * Tweak - WooCommerce 8.x compatible
