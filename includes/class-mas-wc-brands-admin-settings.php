@@ -7,6 +7,7 @@
 if ( ! class_exists( 'Mas_WC_Brands_Admin_Settings' ) ) {
 	class Mas_WC_Brands_Admin_Settings {
 
+		var $settings;
 		var $settings_tabs;
 		var $current_tab;
 		var $fields = array();
