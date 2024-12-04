@@ -4,7 +4,7 @@ Tags: woocommerce, woocommerce brands, woocommerce manufacturer, woocommerce pro
 Requires at least: 5.6
 Tested up to: 6.4
 Requires PHP: 7.4
-Stable tag: 1.0.9
+Stable tag: 1.1.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -65,6 +65,12 @@ Yes you can! Join in on our [GitHub repository](https://github.com/madrasthemes/
 5. Shortcode Output.
 
 == Changelog ==
+
+= 1.1.0 - 2024-12-04 =
+* Compatible with php 8.x for MAS Brands 
+
+= 1.0.9 - 2024-04-09 =
+* Fix PHP issues
 
 = 1.0.8 - 2024-01-25 =
 * Feature - WordPress 6.4 compatible
