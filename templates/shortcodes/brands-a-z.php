@@ -13,7 +13,7 @@
 		<?php
 		foreach ( $index as $i ) {
 			if ( isset( $product_brands[ $i ] ) ) {
-				echo '<li class="active"><a href="#brands-' . esc_url( $i ) . '">' . esc_html( $i ) . '</a></li>';
+				echo '<li class="active"><a href="#brands-' .$i . '">' . esc_html( $i ) . '</a></li>';
 			} elseif ( $show_empty ) {
 				echo '<li><span>' . esc_html( $i ) . '</span></li>';
 			}
