@@ -17,7 +17,7 @@ if ( ! class_exists( 'Mas_WC_Brands' ) ) {
 		 *
 		 * @var string
 		 */
-		public $version = '1.1.0';
+		public $version = '1.2.0';
 
 		/**
 		 * The single instance of the class.
@@ -104,8 +104,8 @@ if ( ! class_exists( 'Mas_WC_Brands' ) ) {
 		 * Enqueue scripts
 		 */
 		public function enqueue_scripts() {
-			if ( 'yes' === get_option( 'mas_wc_brands_plugin_styles', true ) ) {
-				wp_enqueue_style( 'mas-wc-brands-style', plugins_url( 'assets/css/style.css', MAS_WCBR_PLUGIN_FILE ), '', $this->version );
+			if ( 'yes' === get_option( 'mas_wc_brands_plugin_styles', 'yes' ) ) {
+				wp_enqueue_style( 'mas-wc-brands-style', plugins_url( 'assets/css/style.css', MAS_WCBR_PLUGIN_FILE ), array(), $this->version );
 				wp_style_add_data( 'mas-wc-brands-style', 'rtl', 'replace' );
 			}
 		}
@@ -132,7 +132,8 @@ if ( ! class_exists( 'Mas_WC_Brands' ) ) {
 		 * @return string
 		 */
 		public function get_brand_taxonomy() {
-			return get_option( 'mas_wc_brands_brand_taxonomy' );
+			$taxonomy = get_option( 'mas_wc_brands_brand_taxonomy', '' );
+			return is_string( $taxonomy ) ? $taxonomy : '';
 		}
 
 		/**

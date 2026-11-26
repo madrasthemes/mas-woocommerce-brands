@@ -29,7 +29,7 @@ jQuery( function ( $ ) {
 
 		// When an image is selected, run a callback.
 		file_frame.on( 'select', function() {
-			attachment = file_frame.state().get('selection').first().toJSON();
+			var attachment = file_frame.state().get('selection').first().toJSON();
 
 			$('#product_brand_thumbnail_id').val( attachment.id );
 			$('#product_brand_thumbnail img').attr('src', attachment.url );

@@ -78,22 +78,28 @@ if ( ! class_exists( 'Mas_WC_Widget_Brand_Description' ) ) {
 				return;
 			}
 
-			extract( $args );
-
 			if ( ! is_tax( $brand_taxonomy ) ) {
 				return;
 			}
 
-			if ( ! get_query_var( 'term' ) ) {
+			$term_slug = get_query_var( 'term' );
+			if ( ! $term_slug ) {
 				return;
 			}
 
-			$thumbnail = '';
-			$term      = get_term_by( 'slug', get_query_var( 'term' ), $brand_taxonomy );
+			$term = get_term_by( 'slug', $term_slug, $brand_taxonomy );
+			if ( ! $term || is_wp_error( $term ) ) {
+				return;
+			}
 
 			$thumbnail = mas_wcbr_get_brand_thumbnail_url( $term->term_id, 'large' );
 
-			echo $before_widget . $before_title . $term->name . $after_title;
+			$before_widget = isset( $args['before_widget'] ) ? $args['before_widget'] : '';
+			$after_widget  = isset( $args['after_widget'] ) ? $args['after_widget'] : '';
+			$before_title  = isset( $args['before_title'] ) ? $args['before_title'] : '';
+			$after_title   = isset( $args['after_title'] ) ? $args['after_title'] : '';
+
+			echo $before_widget . $before_title . esc_html( $term->name ) . $after_title; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 			wc_get_template(
 				'widgets/brand-description.php',
@@ -105,7 +111,7 @@ if ( ! class_exists( 'Mas_WC_Widget_Brand_Description' ) ) {
 				untrailingslashit( MAS_WCBR_ABSPATH ) . '/templates/'
 			);
 
-			echo $after_widget;
+			echo $after_widget; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 
 		/**
@@ -117,7 +123,8 @@ if ( ! class_exists( 'Mas_WC_Widget_Brand_Description' ) ) {
 		 * @return array
 		 */
 		public function update( $new_instance, $old_instance ) {
-			$instance['title'] = wp_strip_all_tags( stripslashes( $new_instance['title'] ) );
+			$instance          = is_array( $old_instance ) ? $old_instance : array();
+			$instance['title'] = isset( $new_instance['title'] ) ? sanitize_text_field( $new_instance['title'] ) : '';
 			return $instance;
 		}
 
@@ -129,15 +136,11 @@ if ( ! class_exists( 'Mas_WC_Widget_Brand_Description' ) ) {
 		 * @param array $instance Instance.
 		 */
 		public function form( $instance ) {
+			$title = isset( $instance['title'] ) ? $instance['title'] : '';
 			?>
 				<p>
-					<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title:', 'mas-wc-brands' ); ?></label>
-					<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" value="
-																	  <?php
-																		if ( isset( $instance['title'] ) ) {
-																			echo esc_attr( $instance['title'] );}
-																		?>
-					" />
+					<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'mas-wc-brands' ); ?></label>
+					<input type="text" class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" value="<?php echo esc_attr( $title ); ?>" />
 				</p>
 			<?php
 		}

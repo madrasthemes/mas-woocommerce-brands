@@ -6,16 +6,21 @@
  * @package Mas_WC_Brands/Templates
  */
 
+$term_link = get_term_link( $term, $taxonomy );
+if ( is_wp_error( $term_link ) ) {
+	return;
+}
+
 $style_attr = '';
 if ( ! empty( $width ) ) {
-	$style_attr = 'width:' . esc_attr( $width ) . ';';
+	$style_attr .= 'width:' . esc_attr( $width ) . ';';
 }
 if ( ! empty( $height ) ) {
-	$style_attr = 'height:' . esc_attr( $height ) . ';';
+	$style_attr .= 'height:' . esc_attr( $height ) . ';';
 }
 
 ?>
-<a href="<?php echo esc_url( get_term_link( $term, $taxonomy ) ); ?>">
+<a href="<?php echo esc_url( $term_link ); ?>">
 	<img src="<?php echo esc_url( $thumbnail ); ?>" alt="<?php echo esc_attr( $term->name ); ?>" class="<?php echo esc_attr( $class ); ?>" 
 						<?php
 						if ( ! empty( $style_attr ) ) :

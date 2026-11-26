@@ -2,9 +2,9 @@
 Contributors: madrasthemes, farookibrahim, jmabbas, ibndawood
 Tags: woocommerce, woocommerce brands, woocommerce manufacturer, woocommerce product, woocommerce product attribute
 Requires at least: 5.6
-Tested up to: 6.4
+Tested up to: 7.2
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -65,6 +65,16 @@ Yes you can! Join in on our [GitHub repository](https://github.com/madrasthemes/
 5. Shortcode Output.
 
 == Changelog ==
+
+= 1.2.0 - 2026-11-26 =
+* Tweak - PHP 8.4 compatibility improvements and null/WP_Error safety guards
+* Tweak - WordPress 7.2 and WooCommerce 11.3 compatibility updates
+* Fix - Replaced deprecated `update_woocommerce_term_meta()` with `update_term_meta()`
+* Fix - Added nonce verification and capability checks when saving brand term metadata
+* Fix - Scoped admin scripts and term meta saving to the configured brand taxonomy
+* Fix - Fixed `mas_wc_brands_plugin_styles` default option handling on fresh installs
+* Fix - Fixed `single-brand.php` width/height inline style concatenation and widget form value whitespace
+* Fix - Removed `WP_Query` transient serialization in `Mas_WC_Brands_Shortcodes::product_loop()`
 
 = 1.1.0 - 2024-12-04 =
 * Compatible with php 8.x for MAS Brands 

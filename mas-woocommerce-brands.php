@@ -3,8 +3,8 @@
  * Plugin Name:       MAS Brands for WooCommerce
  * Plugin URI:        https://github.com/madrasthemes/mas-woocommerce-brands
  * Description:       Add brands to your products, as well as widgets and shortcodes for displaying your brands.
- * Version:           1.1.0
- * Requires at least: 5.3
+ * Version:           1.2.0
+ * Requires at least: 5.6
  * Requires PHP:      7.4
  * Author:            MadrasThemes
  * Author URI:        https://madrasthemes.com/
@@ -12,7 +12,7 @@
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:       mas-wc-brands
  * Domain Path:       /languages
- * WC tested up to:   8.5
+ * WC tested up to:   11.3
  *
  * @package Mas_WC_Brands
  */

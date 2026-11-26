@@ -7,10 +7,33 @@
 if ( ! class_exists( 'Mas_WC_Brands_Admin_Settings' ) ) {
 	class Mas_WC_Brands_Admin_Settings {
 
-		var $settings;
-		var $settings_tabs;
-		var $current_tab;
-		var $fields = array();
+		/**
+		 * Settings fields.
+		 *
+		 * @var array
+		 */
+		public $settings;
+
+		/**
+		 * Settings tabs.
+		 *
+		 * @var array
+		 */
+		public $settings_tabs;
+
+		/**
+		 * Current tab.
+		 *
+		 * @var string
+		 */
+		public $current_tab;
+
+		/**
+		 * Fields.
+		 *
+		 * @var array
+		 */
+		public $fields = array();
 
 		public function __construct() {
 
@@ -22,7 +45,7 @@ if ( ! class_exists( 'Mas_WC_Brands_Admin_Settings' ) ) {
 			$this->init_form_fields();
 
 			add_action( 'woocommerce_get_sections_products', array( $this, 'add_settings_tab' ) );
-			add_action( 'woocommerce_get_settings_products', array( $this, 'add_settings_section' ), null, 2 );
+			add_action( 'woocommerce_get_settings_products', array( $this, 'add_settings_section' ), 10, 2 );
 
 			add_action( 'woocommerce_update_options_products', array( $this, 'save_admin_settings' ) );
 		}
@@ -68,11 +91,14 @@ if ( ! class_exists( 'Mas_WC_Brands_Admin_Settings' ) ) {
 
 		/**
 		 * Add the settings for the new "Brands" subtab.
+		 *
 		 * @access public
-		 * @return  void
+		 * @param array  $settings        Existing settings.
+		 * @param string $current_section Current section slug.
+		 * @return array
 		 */
-		public function add_settings_section ( $settings, $current_section ) {
-			if ( 'mas_wc_brands' == $current_section ) {
+		public function add_settings_section( $settings, $current_section ) {
+			if ( 'mas_wc_brands' === $current_section ) {
 				$settings = $this->settings;
 			}
 			return $settings;
@@ -80,21 +106,31 @@ if ( ! class_exists( 'Mas_WC_Brands_Admin_Settings' ) ) {
 
 		/**
 		 * Add a new "Brands" subtab to the "Products" tab.
+		 *
 		 * @access public
-		 * @return  void
+		 * @param array $sections Existing sections.
+		 * @return array
 		 */
-		public function add_settings_tab ( $sections ) {
+		public function add_settings_tab( $sections ) {
 			$sections = array_merge( $sections, $this->settings_tabs );
 			return $sections;
 		} // End add_settings_tab()
 
 		/**
-		 * save_admin_settings function.
+		 * Save admin settings.
 		 *
 		 * @access public
 		 */
 		public function save_admin_settings() {
-			if ( isset( $_GET['section'] ) && 'mas_wc_brands' === $_GET['section'] ) {
+			if ( ! current_user_can( 'manage_woocommerce' ) ) {
+				return;
+			}
+
+			// WooCommerce verifies the 'woocommerce-settings' nonce before firing 'woocommerce_update_options_products'.
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$section = isset( $_GET['section'] ) ? sanitize_key( wp_unslash( $_GET['section'] ) ) : '';
+
+			if ( 'mas_wc_brands' === $section ) {
 				woocommerce_update_options( $this->settings );
 			}
 		}
