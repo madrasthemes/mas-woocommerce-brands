@@ -32,10 +32,11 @@ if ( ! class_exists( 'Mas_WC_Brands_Admin_Taxonomies' ) ) {
 		 */
 		public function add_brand_fields() {
 			wp_enqueue_script( 'mas-wc-brands-admin' );
+			wp_nonce_field( 'mas_wc_brands_save_term_meta', 'mas_wc_brands_term_meta_nonce' );
 			?>
 			<div class="form-field">
 				<label><?php esc_html_e( 'Thumbnail', 'mas-wc-brands' ); ?></label>
-				<div id="product_brand_thumbnail" style="float:left;margin-right:10px;"><img src="<?php echo wc_placeholder_img_src(); ?>" width="60px" height="60px" alt="" /></div>
+				<div id="product_brand_thumbnail" style="float:left;margin-right:10px;"><img src="<?php echo esc_url( wc_placeholder_img_src() ); ?>" width="60px" height="60px" alt="" /></div>
 				<div style="line-height:60px;">
 					<input type="hidden" id="product_brand_thumbnail_id" name="product_brand_thumbnail_id" />
 					<button type="button" class="mas_wc_br_upload_image_button button"><?php esc_html_e( 'Upload/Add image', 'mas-wc-brands' ); ?></button>
@@ -49,17 +50,16 @@ if ( ! class_exists( 'Mas_WC_Brands_Admin_Taxonomies' ) ) {
 		/**
 		 * Edit brand thumbnail field.
 		 *
-		 * @param mixed $term Term (brand) being edited
-		 * @param mixed $taxonomy Taxonomy of the term being edited
+		 * @param mixed $term     Term (brand) being edited.
+		 * @param mixed $taxonomy Taxonomy of the term being edited.
 		 */
 		public function edit_brand_fields( $term, $taxonomy ) {
 			wp_enqueue_script( 'mas-wc-brands-admin' );
+			wp_nonce_field( 'mas_wc_brands_save_term_meta', 'mas_wc_brands_term_meta_nonce' );
 
-			$image 			= '';
-			$thumbnail_id 	= absint( get_term_meta( $term->term_id, 'thumbnail_id', true ) );
-			if ( $thumbnail_id ) {
-				$image = wp_get_attachment_thumb_url( $thumbnail_id );
-			} else {
+			$thumbnail_id = absint( get_term_meta( $term->term_id, 'thumbnail_id', true ) );
+			$image        = $thumbnail_id ? wp_get_attachment_thumb_url( $thumbnail_id ) : false;
+			if ( ! $image ) {
 				$image = wc_placeholder_img_src();
 			}
 
@@ -70,8 +70,8 @@ if ( ! class_exists( 'Mas_WC_Brands_Admin_Taxonomies' ) ) {
 					<div id="product_brand_thumbnail" style="float:left;margin-right:10px;"><img src="<?php echo esc_url( $image ); ?>" alt="" style="max-width: 150px; height: auto;" /></div>
 					<div style="line-height:60px;">
 						<input type="hidden" id="product_brand_thumbnail_id" name="product_brand_thumbnail_id" value="<?php echo esc_attr( $thumbnail_id ); ?>" />
-						<button type="submit" class="mas_wc_br_upload_image_button button"><?php esc_html_e( 'Upload/Add image', 'mas-wc-brands' ); ?></button>
-						<button type="submit" class="mas_wc_br_remove_image_button button"><?php esc_html_e( 'Remove image', 'mas-wc-brands' ); ?></button>
+						<button type="button" class="mas_wc_br_upload_image_button button"><?php esc_html_e( 'Upload/Add image', 'mas-wc-brands' ); ?></button>
+						<button type="button" class="mas_wc_br_remove_image_button button"><?php esc_html_e( 'Remove image', 'mas-wc-brands' ); ?></button>
 					</div>
 					<div class="clear"></div>
 				</td>
@@ -80,17 +80,31 @@ if ( ! class_exists( 'Mas_WC_Brands_Admin_Taxonomies' ) ) {
 		}
 
 		/**
-		 * save_brand_fields function.
+		 * Save brand thumbnail field.
 		 *
-		 * @param mixed $term_id Term ID being saved
-		 * @param mixed $tt_id
-		 * @param mixed $taxonomy Taxonomy of the term being saved
+		 * @param int    $term_id  Term ID being saved.
+		 * @param int    $tt_id    Term taxonomy ID.
+		 * @param string $taxonomy Taxonomy of the term being saved.
 		 * @return void
 		 */
 		public function save_brand_fields( $term_id, $tt_id, $taxonomy ) {
+			if ( $taxonomy !== Mas_WC_Brands()->get_brand_taxonomy() ) {
+				return;
+			}
+
+			if ( ! current_user_can( 'edit_term', $term_id ) ) {
+				return;
+			}
 
 			if ( isset( $_POST['product_brand_thumbnail_id'] ) ) {
-				update_woocommerce_term_meta( $term_id, 'thumbnail_id', absint( $_POST['product_brand_thumbnail_id'] ) );
+				if (
+					! isset( $_POST['mas_wc_brands_term_meta_nonce'] ) ||
+					! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['mas_wc_brands_term_meta_nonce'] ) ), 'mas_wc_brands_save_term_meta' )
+				) {
+					return;
+				}
+
+				update_term_meta( $term_id, 'thumbnail_id', absint( wp_unslash( $_POST['product_brand_thumbnail_id'] ) ) );
 			}
 
 			delete_transient( 'wc_term_counts' );
@@ -117,29 +131,25 @@ if ( ! class_exists( 'Mas_WC_Brands_Admin_Taxonomies' ) ) {
 		/**
 		 * Thumbnail column value added to brand admin.
 		 *
-		 * @param mixed $columns
-		 * @param mixed $column
-		 * @param mixed $id
-		 * @return array
+		 * @param string $columns Column output.
+		 * @param string $column  Column name.
+		 * @param int    $id      Term ID.
+		 * @return string
 		 */
 		public function product_brand_column( $columns, $column, $id ) {
+			if ( 'thumb' === $column ) {
+				$thumbnail_id = absint( get_term_meta( $id, 'thumbnail_id', true ) );
+				$image        = $thumbnail_id ? wp_get_attachment_thumb_url( $thumbnail_id ) : false;
 
-			if ( $column == 'thumb' ) {
-
-				$image 			= '';
-				$thumbnail_id 	= get_term_meta( $id, 'thumbnail_id', true );
-
-				if ($thumbnail_id)
-					$image = wp_get_attachment_thumb_url( $thumbnail_id );
-				else
+				if ( ! $image ) {
 					$image = wc_placeholder_img_src();
+				}
 
-				// Prevent esc_url from breaking spaces in urls for image embeds
+				// Prevent esc_url from breaking spaces in urls for image embeds.
 				// Ref: http://core.trac.wordpress.org/ticket/23605
-				$image = str_replace( ' ', '%20', $image );
+				$image = str_replace( ' ', '%20', (string) $image );
 
-				$columns .= '<img src="' . esc_url( $image ) . '" alt="' . esc_html__( 'Thumbnail', 'mas-wc-brands' ) . '" class="wp-post-image" height="48" width="48" />';
-
+				$columns .= '<img src="' . esc_url( $image ) . '" alt="' . esc_attr__( 'Thumbnail', 'mas-wc-brands' ) . '" class="wp-post-image" height="48" width="48" />';
 			}
 
 			return $columns;

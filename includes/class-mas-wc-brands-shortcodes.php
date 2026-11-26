@@ -39,229 +39,270 @@ if ( ! class_exists( 'Mas_WC_Brands_Shortcodes' ) ) {
 		}
 
 		/**
-		 * output_product_brand function.
+		 * Output product brand shortcode.
 		 *
 		 * @access public
+		 * @param array $atts Shortcode attributes.
+		 * @return string
 		 */
 		public static function output_product_brand( $atts ) {
 			global $post;
 
 			$brand_taxonomy = self::$brand_taxonomy;
 
-			extract( shortcode_atts( array(
-				'width'   => '',
-				'height'  => '',
-				'class'   => 'aligncenter',
-				'post_id' => ''
-			), $atts ) );
+			$atts = shortcode_atts(
+				array(
+					'width'   => '',
+					'height'  => '',
+					'class'   => 'aligncenter',
+					'post_id' => '',
+				),
+				$atts,
+				'mas_product_brand'
+			);
 
-			if ( ! $post_id && ! $post )
-				return;
-
-			if ( ! $post_id )
+			$post_id = absint( $atts['post_id'] );
+			if ( ! $post_id ) {
+				if ( ! $post instanceof WP_Post ) {
+					return '';
+				}
 				$post_id = $post->ID;
+			}
 
-			$brands = wp_get_post_terms( $post_id, $brand_taxonomy, array( "fields" => "ids" ) );
+			$brands = wp_get_post_terms( $post_id, $brand_taxonomy, array( 'fields' => 'ids' ) );
 
-			$output = null;
+			if ( is_wp_error( $brands ) || empty( $brands ) ) {
+				return '';
+			}
 
-			if ( count( $brands ) > 0 ) {
+			$width  = $atts['width'];
+			$height = $atts['height'];
 
-				ob_start();
+			if ( $width || $height ) {
+				$width  = $width ? $width : 'auto';
+				$height = $height ? $height : 'auto';
+			}
 
-				foreach( $brands as $brand ) {
+			ob_start();
 
-					$thumbnail = mas_wcbr_get_brand_thumbnail_url( $brand );
+			foreach ( $brands as $brand ) {
+				$thumbnail = mas_wcbr_get_brand_thumbnail_url( $brand );
 
-					if ( $thumbnail ) {
+				if ( $thumbnail ) {
+					$term = get_term_by( 'id', $brand, $brand_taxonomy );
+					if ( ! $term || is_wp_error( $term ) ) {
+						continue;
+					}
 
-						$term = get_term_by( 'id', $brand, $brand_taxonomy );
-
-						if ( $width || $height ) {
-							$width = $width ? $width : 'auto';
-							$height = $height ? $height : 'auto';
-						}
-
-
-						wc_get_template( 'shortcodes/single-brand.php', array(
+					wc_get_template(
+						'shortcodes/single-brand.php',
+						array(
 							'taxonomy'  => $brand_taxonomy,
 							'term'      => $term,
 							'width'     => $width,
 							'height'    => $height,
 							'thumbnail' => $thumbnail,
-							'class'     => $class
-						), 'mas-woocommerce-brands', untrailingslashit( MAS_WCBR_ABSPATH ) . '/templates/' );
-
-					}
+							'class'     => $atts['class'],
+						),
+						'mas-woocommerce-brands',
+						untrailingslashit( MAS_WCBR_ABSPATH ) . '/templates/'
+					);
 				}
-				$output = ob_get_clean();
 			}
-
-			return $output;
-		}
-
-		/**
-		 * output_product_brand_list function.
-		 *
-		 * @access public
-		 */
-		public static function output_product_brand_list( $atts ) {
-
-			$brand_taxonomy = self::$brand_taxonomy;
-
-			extract( shortcode_atts( array(
-				'show_top_links'    => true,
-				'show_empty'        => true,
-				'show_empty_brands' => false
-			), $atts ) );
-
-			if ( $show_top_links === "false" )
-				$show_top_links = false;
-
-			if ( $show_empty === "false" )
-				$show_empty = false;
-
-			if ( $show_empty_brands === "false" )
-				$show_empty_brands = false;
-
-			$product_brands = array();
-			$terms          = get_terms( array( 'taxonomy' => $brand_taxonomy, 'hide_empty' => ( $show_empty_brands ? false : true ) ) );
-
-			if ( ! $terms || ! is_array( $terms ) ) {
-				return;
-			}
-
-			foreach ( $terms as $term ) {
-
-				$term_letter = substr( $term->slug, 0, 1 );
-
-				if ( ctype_alpha( $term_letter ) ) {
-
-					foreach ( range( 'a', 'z' ) as $i )
-						if ( $i == $term_letter ) {
-							$product_brands[ $i ][] = $term;
-							break;
-						}
-
-				} else {
-					$product_brands[ '0-9' ][] = $term;
-				}
-
-			}
-
-			ob_start();
-
-			wc_get_template( 'shortcodes/brands-a-z.php', array(
-				'taxonomy'       => $brand_taxonomy,
-				'terms'          => $terms,
-				'index'          => array_merge( range( 'a', 'z' ), array( '0-9' ) ),
-				'product_brands' => $product_brands,
-				'show_empty'     => $show_empty,
-				'show_top_links' => $show_top_links
-			), 'mas-woocommerce-brands', untrailingslashit( MAS_WCBR_ABSPATH ) . '/templates/' );
 
 			return ob_get_clean();
 		}
 
 		/**
-		 * output_product_brand_thumbnails function.
+		 * Output product brand A-Z list shortcode.
 		 *
 		 * @access public
+		 * @param array $atts Shortcode attributes.
+		 * @return string
 		 */
-		public static function output_product_brand_thumbnails( $atts ) {
-
+		public static function output_product_brand_list( $atts ) {
 			$brand_taxonomy = self::$brand_taxonomy;
 
-			extract( shortcode_atts( array(
-				'columns'		=> 4,
-				'hide_empty'	=> 0,
-				'orderby'		=> 'name',
-				'order'			=> '',
-				'slug'			=> '',
-				'include'		=> '',
-				'exclude'		=> '',
-				'number'		=> '',
-				'image_size'	=> '',
-				'fluid_columns'	=> false
-			 ), $atts ) );
+			$atts = shortcode_atts(
+				array(
+					'show_top_links'    => true,
+					'show_empty'        => true,
+					'show_empty_brands' => false,
+				),
+				$atts,
+				'mas_product_brand_list'
+			);
 
-			$exclude = array_map( 'intval', explode(',', $exclude) );
-			
-			if( empty( $order ) ) {
-				$order = $orderby == 'name' ? 'asc' : 'desc';
+			$show_top_links    = wp_validate_boolean( $atts['show_top_links'] );
+			$show_empty        = wp_validate_boolean( $atts['show_empty'] );
+			$show_empty_brands = wp_validate_boolean( $atts['show_empty_brands'] );
+
+			$product_brands = array();
+			$terms          = get_terms(
+				array(
+					'taxonomy'   => $brand_taxonomy,
+					'hide_empty' => ! $show_empty_brands,
+				)
+			);
+
+			if ( ! $terms || is_wp_error( $terms ) || ! is_array( $terms ) ) {
+				return '';
+			}
+
+			foreach ( $terms as $term ) {
+				$term_letter = strtolower( substr( (string) $term->slug, 0, 1 ) );
+
+				if ( '' !== $term_letter && ctype_alpha( $term_letter ) ) {
+					$product_brands[ $term_letter ][] = $term;
+				} else {
+					$product_brands['0-9'][] = $term;
+				}
+			}
+
+			ob_start();
+
+			wc_get_template(
+				'shortcodes/brands-a-z.php',
+				array(
+					'taxonomy'       => $brand_taxonomy,
+					'terms'          => $terms,
+					'index'          => array_merge( range( 'a', 'z' ), array( '0-9' ) ),
+					'product_brands' => $product_brands,
+					'show_empty'     => $show_empty,
+					'show_top_links' => $show_top_links,
+				),
+				'mas-woocommerce-brands',
+				untrailingslashit( MAS_WCBR_ABSPATH ) . '/templates/'
+			);
+
+			return ob_get_clean();
+		}
+
+		/**
+		 * Output product brand thumbnails shortcode.
+		 *
+		 * @access public
+		 * @param array $atts Shortcode attributes.
+		 * @return string
+		 */
+		public static function output_product_brand_thumbnails( $atts ) {
+			$brand_taxonomy = self::$brand_taxonomy;
+
+			$atts = shortcode_atts(
+				array(
+					'columns'       => 4,
+					'hide_empty'    => 0,
+					'orderby'       => 'name',
+					'order'         => '',
+					'slug'          => '',
+					'include'       => '',
+					'exclude'       => '',
+					'number'        => '',
+					'image_size'    => '',
+					'fluid_columns' => false,
+				),
+				$atts,
+				'mas_product_brand_thumbnails'
+			);
+
+			$columns = absint( $atts['columns'] );
+			if ( $columns < 1 ) {
+				$columns = 4;
+			}
+
+			$exclude = ! empty( $atts['exclude'] ) ? array_filter( array_map( 'intval', explode( ',', $atts['exclude'] ) ) ) : array();
+			$order   = $atts['order'];
+
+			if ( empty( $order ) ) {
+				$order = 'name' === $atts['orderby'] ? 'asc' : 'desc';
 			}
 
 			$taxonomy_args = array(
-				'taxonomy'		=> $brand_taxonomy,
-				'hide_empty'	=> $hide_empty,
-				'orderby'		=> $orderby,
-				'slug'			=> $slug,
-				'include'		=> $include,
-				'exclude'		=> $exclude,
-				'number'		=> $number,
-				'order'			=> $order
+				'taxonomy'   => $brand_taxonomy,
+				'hide_empty' => wp_validate_boolean( $atts['hide_empty'] ),
+				'orderby'    => $atts['orderby'],
+				'slug'       => $atts['slug'],
+				'include'    => $atts['include'],
+				'exclude'    => $exclude,
+				'number'     => $atts['number'],
+				'order'      => $order,
 			);
 
 			$brands = get_terms( $taxonomy_args );
 
-			if ( ! $brands || ! is_array( $brands ) ) {
-				return;
+			if ( ! $brands || is_wp_error( $brands ) || ! is_array( $brands ) ) {
+				return '';
 			}
 
 			ob_start();
 
-			wc_get_template( 'shortcodes/brand-thumbnails.php', array(
-				'taxonomy'      => $brand_taxonomy,
-				'brands'        => $brands,
-				'columns'       => $columns,
-				'image_size'	=> $image_size,
-				'fluid_columns' => $fluid_columns
-			), 'mas-woocommerce-brands', untrailingslashit( MAS_WCBR_ABSPATH ) . '/templates/' );
+			wc_get_template(
+				'shortcodes/brand-thumbnails.php',
+				array(
+					'taxonomy'      => $brand_taxonomy,
+					'brands'        => $brands,
+					'columns'       => $columns,
+					'image_size'    => $atts['image_size'],
+					'fluid_columns' => $atts['fluid_columns'],
+				),
+				'mas-woocommerce-brands',
+				untrailingslashit( MAS_WCBR_ABSPATH ) . '/templates/'
+			);
 
 			return ob_get_clean();
 		}
 
 		/**
-		 * output_brand_products function.
+		 * Output brand products shortcode.
 		 *
 		 * @access public
+		 * @param array $atts Shortcode attributes.
+		 * @return string
 		 */
 		public static function output_brand_products( $atts ) {
-
 			$brand_taxonomy = self::$brand_taxonomy;
 
-			$atts = shortcode_atts( array(
-				'per_page' => '12',
-				'columns'  => '4',
-				'orderby'  => 'title',
-				'order'    => 'desc',
-				'brand'    => '',
-				'operator' => 'IN'
-			), $atts );
+			$atts = shortcode_atts(
+				array(
+					'per_page' => '12',
+					'columns'  => '4',
+					'orderby'  => 'title',
+					'order'    => 'desc',
+					'brand'    => '',
+					'operator' => 'IN',
+				),
+				$atts,
+				'mas_brand_products'
+			);
 
 			if ( ! $atts['brand'] ) {
 				return '';
 			}
 
-			// Default ordering args
+			$operator = strtoupper( $atts['operator'] );
+			if ( ! in_array( $operator, array( 'IN', 'NOT IN', 'AND' ), true ) ) {
+				$operator = 'IN';
+			}
+
+			// Default ordering args.
 			$ordering_args = WC()->query->get_catalog_ordering_args( $atts['orderby'], $atts['order'] );
 			$meta_query    = WC()->query->get_meta_query();
 			$query_args    = array(
-				'post_type'            => 'product',
-				'post_status'          => 'publish',
-				'ignore_sticky_posts'  => 1,
-				'orderby'              => $ordering_args['orderby'],
-				'order'                => $ordering_args['order'],
-				'posts_per_page'       => $atts['per_page'],
-				'meta_query'           => $meta_query,
-				'tax_query'            => array(
+				'post_type'           => 'product',
+				'post_status'         => 'publish',
+				'ignore_sticky_posts' => 1,
+				'orderby'             => $ordering_args['orderby'],
+				'order'               => $ordering_args['order'],
+				'posts_per_page'      => intval( $atts['per_page'] ),
+				'meta_query'          => $meta_query,
+				'tax_query'           => array(
 					array(
-						'taxonomy'     => $brand_taxonomy,
-						'terms'        => array_map( 'sanitize_title', explode( ',', $atts['brand'] ) ),
-						'field'        => 'slug',
-						'operator'     => $atts['operator']
-					)
-				)
+						'taxonomy' => $brand_taxonomy,
+						'terms'    => array_map( 'sanitize_title', explode( ',', $atts['brand'] ) ),
+						'field'    => 'slug',
+						'operator' => $operator,
+					),
+				),
 			);
 
 			if ( isset( $ordering_args['meta_key'] ) ) {
@@ -270,7 +311,7 @@ if ( ! class_exists( 'Mas_WC_Brands_Shortcodes' ) ) {
 
 			$return = self::product_loop( $query_args, $atts, $brand_taxonomy );
 
-			// Remove ordering query arguments
+			// Remove ordering query arguments.
 			WC()->query->remove_ordering_args();
 
 			return $return;
@@ -278,31 +319,25 @@ if ( ! class_exists( 'Mas_WC_Brands_Shortcodes' ) ) {
 
 		/**
 		 * Loop over found products.
+		 *
 		 * @access public
-		 * @param  array $query_args
-		 * @param  array $atts
-		 * @param  string $loop_name
+		 * @param  array  $query_args Query arguments.
+		 * @param  array  $atts       Shortcode attributes.
+		 * @param  string $loop_name  Loop name.
 		 * @return string
 		 */
 		public static function product_loop( $query_args, $atts, $loop_name ) {
 			global $woocommerce_loop;
 
-			$columns                     = absint( $atts['columns'] );
+			$columns                     = max( 1, absint( $atts['columns'] ) );
 			$woocommerce_loop['columns'] = $columns;
 			$woocommerce_loop['name']    = $loop_name;
 			$query_args                  = apply_filters( 'woocommerce_shortcode_products_query', $query_args, $atts, $loop_name );
-			$transient_name              = 'wc_loop' . substr( md5( json_encode( $query_args ) . $loop_name ), 28 ) . WC_Cache_Helper::get_transient_version( 'product_query' );
-			$products                    = get_transient( $transient_name );
-
-			if ( false === $products || ! is_a( $products, 'WP_Query' ) ) {
-				$products = new WP_Query( $query_args );
-				set_transient( $transient_name, $products, DAY_IN_SECONDS * 30 );
-			}
+			$products                    = new WP_Query( $query_args );
 
 			ob_start();
 
 			if ( $products->have_posts() ) {
-
 				// Prime caches before grabbing objects.
 				update_post_caches( $products->posts, array( 'product', 'product_variation' ) );
 				?>
@@ -311,7 +346,8 @@ if ( ! class_exists( 'Mas_WC_Brands_Shortcodes' ) ) {
 
 				<?php woocommerce_product_loop_start(); ?>
 
-					<?php while ( $products->have_posts() ) : $products->the_post(); ?>
+					<?php while ( $products->have_posts() ) : ?>
+						<?php $products->the_post(); ?>
 
 						<?php wc_get_template_part( 'content', 'product' ); ?>
 
@@ -329,7 +365,7 @@ if ( ! class_exists( 'Mas_WC_Brands_Shortcodes' ) ) {
 			woocommerce_reset_loop();
 			wp_reset_postdata();
 
-			return '<div class="woocommerce columns-' . $columns . '">' . ob_get_clean() . '</div>';
+			return '<div class="woocommerce columns-' . esc_attr( $columns ) . '">' . ob_get_clean() . '</div>';
 		}
 	}
 }

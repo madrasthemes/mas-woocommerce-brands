@@ -13,7 +13,7 @@
 		<?php
 		foreach ( $index as $i ) {
 			if ( isset( $product_brands[ $i ] ) ) {
-				echo '<li class="active"><a href="#brands-' .$i . '">' . esc_html( $i ) . '</a></li>';
+				echo '<li class="active"><a href="#brands-' . esc_attr( $i ) . '">' . esc_html( $i ) . '</a></li>';
 			} elseif ( $show_empty ) {
 				echo '<li><span>' . esc_html( $i ) . '</span></li>';
 			}
@@ -31,7 +31,10 @@
 			<ul class="brands">
 				<?php
 				foreach ( $product_brands[ $i ] as $brand ) {
-					echo '<li><a href="' . esc_url( get_term_link( $brand->slug, $taxonomy ) ) . '">' . esc_html( $brand->name ) . '</a></li>';
+					$term_link = get_term_link( $brand->slug, $taxonomy );
+					if ( ! is_wp_error( $term_link ) ) {
+						echo '<li><a href="' . esc_url( $term_link ) . '">' . esc_html( $brand->name ) . '</a></li>';
+					}
 				}
 				?>
 			</ul>

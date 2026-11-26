@@ -16,24 +16,28 @@ if ( ! class_exists( 'Mas_WC_Brands_Admin' ) ) {
 		}
 
 		/**
-		 * scripts function.
+		 * Enqueue admin scripts.
 		 *
 		 * @return void
 		 */
 		public function scripts() {
-			$screen = get_current_screen();
-			$screen_id = $screen ? $screen->id : '';
+			$screen         = get_current_screen();
+			$screen_id      = $screen ? $screen->id : '';
+			$brand_taxonomy = Mas_WC_Brands()->get_brand_taxonomy();
 
-			if ( strstr( $screen_id, 'edit-pa_' ) ) {
+			if ( ! empty( $brand_taxonomy ) && 'edit-' . $brand_taxonomy === $screen_id ) {
 				$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 				wp_enqueue_media();
-				wp_register_script( 'mas-wc-brands-admin', plugins_url( 'assets/js/admin' . $suffix . '.js', MAS_WCBR_PLUGIN_FILE ), array( 'jquery' ), Mas_WC_Brands()->version );
+				wp_register_script( 'mas-wc-brands-admin', plugins_url( 'assets/js/admin' . $suffix . '.js', MAS_WCBR_PLUGIN_FILE ), array( 'jquery' ), Mas_WC_Brands()->version, true );
 
-				$js_options = apply_filters( 'mas_wc_brands_admin_localize_script_data', array(
-					'media_title'			=> esc_html__( 'Choose an image', 'mas-wc-brands' ),
-					'media_btn_text'		=> esc_html__( 'Use image', 'mas-wc-brands' ),
-					'placeholder_img_src'	=> wc_placeholder_img_src()
-				) );
+				$js_options = apply_filters(
+					'mas_wc_brands_admin_localize_script_data',
+					array(
+						'media_title'         => esc_html__( 'Choose an image', 'mas-wc-brands' ),
+						'media_btn_text'      => esc_html__( 'Use image', 'mas-wc-brands' ),
+						'placeholder_img_src' => wc_placeholder_img_src(),
+					)
+				);
 
 				wp_localize_script( 'mas-wc-brands-admin', 'mas_wc_brands_admin_options', $js_options );
 			}
